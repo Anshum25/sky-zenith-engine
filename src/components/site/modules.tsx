@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Reveal, SectionHeading } from "./reveal";
+import { SectionHeading } from "./reveal";
 import { modules } from "@/lib/site-data";
 import { staggerContainer, fadeUp, viewportOnce } from "@/lib/motion";
 
