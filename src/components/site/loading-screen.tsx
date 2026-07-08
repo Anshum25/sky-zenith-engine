@@ -1,107 +1,94 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
-import { Logo } from "./logo";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
-type Particle = {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  delay: number;
-  duration: number;
-};
+const WORD = ["S", "K", "Y", "•", "E", "R", "P"];
 
 export function LoadingScreen() {
   const [progress, setProgress] = useState(0);
   const [done, setDone] = useState(false);
-  const [particles, setParticles] = useState<Particle[]>([]);
-
-  // Generate particles only on the client to avoid SSR hydration mismatch.
-  useEffect(() => {
-    setParticles(
-      Array.from({ length: 22 }, (_, i) => ({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: 2 + Math.random() * 4,
-        delay: Math.random() * 1.2,
-        duration: 2 + Math.random() * 2.5,
-      })),
-    );
-  }, []);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
+    if (reduce) {
+      setProgress(100);
+      const t = setTimeout(() => setDone(true), 400);
+      return () => clearTimeout(t);
+    }
     let frame = 0;
     const start = performance.now();
-    const total = 1600;
+    const total = 2400;
     const tick = (now: number) => {
       const t = Math.min(1, (now - start) / total);
       const eased = 1 - Math.pow(1 - t, 3);
       setProgress(Math.round(eased * 100));
-      if (t < 1) {
-        frame = requestAnimationFrame(tick);
-      } else {
-        setTimeout(() => setDone(true), 350);
-      }
+      if (t < 1) frame = requestAnimationFrame(tick);
+      else setTimeout(() => setDone(true), 450);
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, []);
+  }, [reduce]);
 
   return (
     <AnimatePresence>
       {!done && (
         <motion.div
-          className="fixed inset-0 z-[100] grid place-items-center bg-background"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0, filter: "blur(16px)" }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          key="preloader"
+          className="fixed inset-0 z-[120] flex flex-col items-center justify-center bg-white"
+          initial={{ y: 0 }}
+          exit={{ y: "-100%" }}
+          transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
         >
-          <div className="grid-bg absolute inset-0 opacity-60" />
-          <div
-            className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-50 blur-3xl animate-aurora"
-            style={{
-              background:
-                "conic-gradient(from 0deg, var(--brand), var(--cyan), var(--violet), var(--brand))",
-            }}
-          />
-
-          {particles.map((p) => (
-            <motion.span
-              key={p.id}
-              className="absolute rounded-full bg-brand"
-              style={{ left: `${p.x}%`, top: `${p.y}%`, width: p.size, height: p.size }}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: [0, 0.9, 0], y: [0, -40], scale: [0, 1, 0] }}
-              transition={{ duration: p.duration, delay: p.delay, repeat: Infinity, ease: "easeInOut" }}
-            />
-          ))}
-
-          <div className="relative flex flex-col items-center gap-8">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <Logo className="scale-150" />
-            </motion.div>
-
-            <div className="flex flex-col items-center gap-3">
-              <div className="h-1 w-56 overflow-hidden rounded-full bg-muted">
-                <motion.div
-                  className="h-full rounded-full"
-                  style={{
-                    width: `${progress}%`,
-                    background:
-                      "linear-gradient(90deg, var(--brand), var(--cyan), var(--violet))",
-                  }}
-                />
-              </div>
-              <div className="flex w-56 items-center justify-between text-xs font-medium text-muted-foreground">
-                <span>Initializing platform</span>
-                <span className="tabular-nums text-foreground">{progress}%</span>
-              </div>
+          <div className="relative flex items-center justify-center px-6">
+            {/* Wordmark — letters reveal from a clipped baseline, staggered from centre. */}
+            <div className="relative flex items-end">
+              {WORD.map((ch, i) => {
+                const fromCenter = Math.abs(i - (WORD.length - 1) / 2);
+                return (
+                  <span key={i} className="overflow-hidden">
+                    <motion.span
+                      className={`block font-display text-5xl font-extrabold leading-[0.9] tracking-tight text-neutral-900 sm:text-7xl ${
+                        ch === "•" ? "px-2 text-[0.55em] sm:px-3" : ""
+                      }`}
+                      initial={{ y: "110%" }}
+                      animate={{ y: "0%" }}
+                      transition={{
+                        duration: 0.7,
+                        ease: [0.22, 1, 0.36, 1],
+                        delay: 0.15 + (2.5 - fromCenter) * 0.08,
+                      }}
+                    >
+                      {ch}
+                    </motion.span>
+                  </span>
+                );
+              })}
             </div>
+
+            {/* Hand-drawn sketch arc sweeping across the wordmark. */}
+            <svg
+              className="pointer-events-none absolute left-1/2 top-1/2 h-[240px] w-[760px] max-w-[95vw] -translate-x-1/2 -translate-y-1/2"
+              viewBox="0 0 760 240"
+              fill="none"
+              preserveAspectRatio="xMidYMid meet"
+              aria-hidden="true"
+            >
+              <motion.path
+                d="M30 205 C 210 55, 470 35, 730 130"
+                stroke="#9a9a9a"
+                strokeWidth="4"
+                strokeLinecap="round"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ duration: 1.3, ease: [0.65, 0, 0.35, 1], delay: 0.4 }}
+              />
+            </svg>
+          </div>
+
+          {/* Counter */}
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
+            <span className="font-display text-sm font-semibold tabular-nums tracking-widest text-neutral-900">
+              {progress.toString().padStart(2, "0")}
+            </span>
           </div>
         </motion.div>
       )}
