@@ -11,6 +11,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { Toaster } from "@/components/ui/sonner";
+import { themeInitScript } from "@/lib/theme";
 
 function NotFoundComponent() {
   return (
@@ -77,21 +79,68 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "SkyERP — AI-Native ERP Platform for the Modern Enterprise" },
+      {
+        name: "description",
+        content:
+          "SkyERP unifies finance, supply chain, HR, manufacturing and CRM on one intelligent, AI-native platform with real-time analytics. Trusted by 4,200+ enterprises worldwide.",
+      },
+      { name: "author", content: "SkyERP" },
+      {
+        name: "keywords",
+        content:
+          "ERP, enterprise resource planning, AI ERP, cloud ERP, finance software, supply chain, manufacturing ERP, business software",
+      },
+      { property: "og:title", content: "SkyERP — AI-Native ERP Platform" },
+      {
+        property: "og:description",
+        content:
+          "Run your entire business on one intelligent platform. Finance, supply chain, HR, manufacturing and CRM with an AI copilot.",
+      },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "SkyERP" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "SkyERP — AI-Native ERP Platform" },
+      {
+        name: "twitter:description",
+        content:
+          "The AI-native ERP unifying finance, operations and people for the world's most ambitious enterprises.",
+      },
+      { name: "theme-color", content: "#6d5cf5" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          name: "SkyERP",
+          applicationCategory: "BusinessApplication",
+          operatingSystem: "Web",
+          description:
+            "AI-native ERP platform unifying finance, supply chain, HR, manufacturing and CRM.",
+          offers: {
+            "@type": "Offer",
+            price: "49",
+            priceCurrency: "USD",
+          },
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "4.9",
+            ratingCount: "1280",
+          },
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -102,11 +151,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <HeadContent />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         {children}
         <Scripts />
       </body>
@@ -121,6 +171,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <Toaster position="top-center" richColors />
     </QueryClientProvider>
   );
 }
