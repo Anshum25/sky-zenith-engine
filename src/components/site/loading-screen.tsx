@@ -1,13 +1,24 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Logo } from "./logo";
+
+type Particle = {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  delay: number;
+  duration: number;
+};
 
 export function LoadingScreen() {
   const [progress, setProgress] = useState(0);
   const [done, setDone] = useState(false);
+  const [particles, setParticles] = useState<Particle[]>([]);
 
-  const particles = useMemo(
-    () =>
+  // Generate particles only on the client to avoid SSR hydration mismatch.
+  useEffect(() => {
+    setParticles(
       Array.from({ length: 22 }, (_, i) => ({
         id: i,
         x: Math.random() * 100,
@@ -16,8 +27,8 @@ export function LoadingScreen() {
         delay: Math.random() * 1.2,
         duration: 2 + Math.random() * 2.5,
       })),
-    [],
-  );
+    );
+  }, []);
 
   useEffect(() => {
     let frame = 0;
