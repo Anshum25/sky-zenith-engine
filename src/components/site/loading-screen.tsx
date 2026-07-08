@@ -66,20 +66,20 @@ export function LoadingScreen() {
 
             {/* Hand-drawn sketch arc sweeping across the wordmark. */}
             <svg
-              className="pointer-events-none absolute -inset-x-16 -inset-y-24 h-[220%] w-[180%]"
-              viewBox="0 0 800 320"
+              className="pointer-events-none absolute left-1/2 top-1/2 h-[240px] w-[760px] max-w-[95vw] -translate-x-1/2 -translate-y-1/2"
+              viewBox="0 0 760 240"
               fill="none"
               preserveAspectRatio="xMidYMid meet"
               aria-hidden="true"
             >
               <motion.path
-                d="M60 250 C 220 90, 420 70, 560 130 C 660 172, 720 175, 760 150"
+                d="M30 205 C 210 55, 470 35, 730 130"
                 stroke="#9a9a9a"
-                strokeWidth="5"
+                strokeWidth="4"
                 strokeLinecap="round"
                 initial={{ pathLength: 0, opacity: 0 }}
                 animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 1.3, ease: [0.65, 0, 0.35, 1], delay: 0.35 }}
+                transition={{ duration: 1.3, ease: [0.65, 0, 0.35, 1], delay: 0.4 }}
               />
             </svg>
           </div>
