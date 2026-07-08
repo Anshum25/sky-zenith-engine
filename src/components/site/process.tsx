@@ -56,7 +56,6 @@ export function Process() {
             className="absolute inset-0 h-full w-full"
             viewBox="0 0 1000 1400"
             fill="none"
-            preserveAspectRatio="none"
             aria-hidden="true"
           >
             <defs>
