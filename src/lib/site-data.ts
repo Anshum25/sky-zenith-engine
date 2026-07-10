@@ -35,56 +35,140 @@ export type MenuItem = {
   icon: LucideIcon;
 };
 
+export type MenuColumn = {
+  heading: string;
+  items: MenuItem[];
+};
+
+export type Featured = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  cta: string;
+  icon: LucideIcon;
+};
+
 export type NavGroup = {
   label: string;
   href: string;
-  items?: MenuItem[];
+  columns?: MenuColumn[];
+  featured?: Featured;
 };
 
 export const navGroups: NavGroup[] = [
   {
     label: "Solutions",
     href: "#modules",
-    items: [
-      { label: "Finance & Accounting", description: "Ledgers, AP/AR, tax & audit", icon: CircleDollarSign },
-      { label: "Supply Chain", description: "Procurement to fulfillment", icon: Truck },
-      { label: "Human Capital", description: "Payroll, talent & performance", icon: Users },
-      { label: "Manufacturing", description: "MRP, shop-floor & quality", icon: Factory },
-      { label: "CRM & Sales", description: "Pipeline, quotes & renewals", icon: ChartNoAxesCombined },
-      { label: "Projects", description: "Planning, billing & margins", icon: Workflow },
+    columns: [
+      {
+        heading: "By Function",
+        items: [
+          { label: "Finance & Accounting", description: "Ledgers, AP/AR, tax & audit", icon: CircleDollarSign },
+          { label: "Supply Chain", description: "Procurement to fulfillment", icon: Truck },
+          { label: "Human Capital", description: "Payroll, talent & performance", icon: Users },
+          { label: "Manufacturing", description: "MRP, shop-floor & quality", icon: Factory },
+        ],
+      },
+      {
+        heading: "By Outcome",
+        items: [
+          { label: "CRM & Sales", description: "Pipeline, quotes & renewals", icon: ChartNoAxesCombined },
+          { label: "Projects", description: "Planning, billing & margins", icon: Workflow },
+          { label: "Asset Management", description: "Lifecycle & maintenance", icon: Package },
+          { label: "Business Intelligence", description: "Dashboards & KPIs", icon: LineChart },
+        ],
+      },
     ],
+    featured: {
+      eyebrow: "Platform Tour",
+      title: "See SkyERP in action",
+      description: "Watch every module work together in one live, 12-minute demo.",
+      cta: "Watch the tour",
+      icon: Sparkles,
+    },
   },
   {
     label: "Industries",
     href: "#industries",
-    items: [
-      { label: "Manufacturing", description: "Discrete & process plants", icon: Factory },
-      { label: "Retail & eComm", description: "Omnichannel commerce", icon: Store },
-      { label: "Distribution", description: "Wholesale & logistics", icon: Package },
-      { label: "Healthcare", description: "Compliance-first operations", icon: HeartPulse },
-      { label: "Professional Services", description: "Project-based delivery", icon: Building2 },
-      { label: "Education", description: "Campus & admin systems", icon: GraduationCap },
+    columns: [
+      {
+        heading: "Sectors",
+        items: [
+          { label: "Manufacturing", description: "Discrete & process plants", icon: Factory },
+          { label: "Retail & eCommerce", description: "Omnichannel commerce", icon: Store },
+          { label: "Distribution", description: "Wholesale & logistics", icon: Package },
+        ],
+      },
+      {
+        heading: "More Sectors",
+        items: [
+          { label: "Healthcare", description: "Compliance-first operations", icon: HeartPulse },
+          { label: "Professional Services", description: "Project-based delivery", icon: Building2 },
+          { label: "Education", description: "Campus & admin systems", icon: GraduationCap },
+        ],
+      },
     ],
+    featured: {
+      eyebrow: "Success Story",
+      title: "42% faster order cycles",
+      description: "How Northwind unified nine plants onto SkyERP in a single quarter.",
+      cta: "Read case study",
+      icon: ChartNoAxesCombined,
+    },
   },
   {
     label: "Products",
     href: "#products",
-    items: [
-      { label: "SkyERP Core", description: "The unified ERP platform", icon: Boxes },
-      { label: "SkyERP AI", description: "Copilot & predictive engine", icon: Brain },
-      { label: "SkyERP Analytics", description: "Real-time BI & reporting", icon: LineChart },
-      { label: "SkyERP Connect", description: "Integration fabric & APIs", icon: Plug },
+    columns: [
+      {
+        heading: "Platform",
+        items: [
+          { label: "SkyERP Core", description: "The unified ERP platform", icon: Boxes },
+          { label: "SkyERP AI", description: "Copilot & predictive engine", icon: Brain },
+        ],
+      },
+      {
+        heading: "Extend",
+        items: [
+          { label: "SkyERP Analytics", description: "Real-time BI & reporting", icon: LineChart },
+          { label: "SkyERP Connect", description: "Integration fabric & APIs", icon: Plug },
+        ],
+      },
     ],
+    featured: {
+      eyebrow: "New",
+      title: "SkyERP AI Copilot",
+      description: "Ask questions in plain language and act across your live data.",
+      cta: "Explore AI",
+      icon: Brain,
+    },
   },
   {
     label: "Resources",
     href: "#blog",
-    items: [
-      { label: "Blog", description: "Product & industry insights", icon: FileText },
-      { label: "Case Studies", description: "Proven customer outcomes", icon: ChartNoAxesCombined },
-      { label: "Events", description: "Webinars & summits", icon: CalendarClock },
-      { label: "Documentation", description: "Guides for builders", icon: Layers },
+    columns: [
+      {
+        heading: "Learn",
+        items: [
+          { label: "Blog", description: "Product & industry insights", icon: FileText },
+          { label: "Case Studies", description: "Proven customer outcomes", icon: ChartNoAxesCombined },
+        ],
+      },
+      {
+        heading: "Connect",
+        items: [
+          { label: "Events", description: "Webinars & summits", icon: CalendarClock },
+          { label: "Documentation", description: "Guides for builders", icon: Layers },
+        ],
+      },
     ],
+    featured: {
+      eyebrow: "Live Webinar",
+      title: "AI in ERP — Oct 2",
+      description: "Join our experts for a deep dive into AI-native operations.",
+      cta: "Save your seat",
+      icon: CalendarClock,
+    },
   },
   { label: "Pricing", href: "#pricing" },
   { label: "Company", href: "#partners" },
