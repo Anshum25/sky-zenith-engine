@@ -2,7 +2,6 @@ import { motion } from "motion/react";
 import {
   Activity,
   ArrowRight,
-  CircleDollarSign,
   PlayCircle,
   ShieldCheck,
   Sparkles,
@@ -10,72 +9,9 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Counter } from "./counter";
+import { OrbitLogo } from "./orbit-logo";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 import { trustLogos } from "@/lib/site-data";
-
-const bars = [48, 62, 40, 78, 56, 88, 70, 96];
-
-function DashboardMock() {
-  return (
-    <div className="glass-strong relative w-full rounded-3xl p-4 shadow-2xl shadow-brand/10 sm:p-6">
-      <div className="mb-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full bg-destructive/70" />
-          <span className="h-3 w-3 rounded-full bg-chart-5/70" />
-          <span className="h-3 w-3 rounded-full bg-chart-4/70" />
-        </div>
-        <span className="flex items-center gap-1.5 rounded-full bg-brand/10 px-2.5 py-1 text-[11px] font-semibold text-brand">
-          <Activity className="h-3 w-3" /> Live
-        </span>
-      </div>
-
-      <div className="mb-4 grid grid-cols-3 gap-3">
-        {[
-          { icon: CircleDollarSign, label: "Revenue", value: "$4.82M", trend: "+12.4%" },
-          { icon: Users, label: "Active", value: "18,204", trend: "+3.1%" },
-          { icon: TrendingUp, label: "Margin", value: "34.7%", trend: "+2.2%" },
-        ].map((kpi, i) => (
-          <motion.div
-            key={kpi.label}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 + i * 0.12 }}
-            className="rounded-2xl border border-border/60 bg-card/60 p-3"
-          >
-            <kpi.icon className="h-4 w-4 text-brand" />
-            <div className="mt-2 text-sm font-bold sm:text-lg">{kpi.value}</div>
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] text-muted-foreground">{kpi.label}</span>
-              <span className="text-[10px] font-semibold text-chart-4">{kpi.trend}</span>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-
-      <div className="rounded-2xl border border-border/60 bg-card/60 p-4">
-        <div className="mb-3 flex items-center justify-between">
-          <span className="text-xs font-semibold">Cash Flow Forecast</span>
-          <span className="text-[10px] text-muted-foreground">Last 8 weeks</span>
-        </div>
-        <div className="flex h-28 items-end gap-2">
-          {bars.map((h, i) => (
-            <motion.div
-              key={i}
-              className="flex-1 rounded-t-md"
-              style={{
-                background: "linear-gradient(to top, var(--brand), var(--cyan))",
-              }}
-              initial={{ height: 0 }}
-              animate={{ height: `${h}%` }}
-              transition={{ delay: 0.6 + i * 0.07, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function FloatingCard({
   className,
@@ -162,9 +98,9 @@ export function Hero() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          <DashboardMock />
+          <OrbitLogo />
 
-          <FloatingCard className="-left-6 top-16" delay={1}>
+          <FloatingCard className="-left-2 top-10" delay={1}>
             <div className="flex items-center gap-2">
               <span className="grid h-8 w-8 place-items-center rounded-lg bg-chart-4/15 text-chart-4">
                 <TrendingUp className="h-4 w-4" />
@@ -176,7 +112,7 @@ export function Hero() {
             </div>
           </FloatingCard>
 
-          <FloatingCard className="-right-4 bottom-16" delay={1.2}>
+          <FloatingCard className="-right-2 bottom-10" delay={1.2}>
             <div className="flex items-center gap-2">
               <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand/15 text-brand">
                 <Sparkles className="h-4 w-4" />
