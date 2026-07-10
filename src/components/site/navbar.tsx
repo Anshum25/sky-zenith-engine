@@ -46,14 +46,14 @@ export function Navbar() {
               <div
                 key={group.label}
                 className="relative"
-                onMouseEnter={() => setOpenMenu(group.items ? group.label : null)}
+                onMouseEnter={() => setOpenMenu(group.columns ? group.label : null)}
               >
                 <a
                   href={group.href}
                   className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
                 >
                   {group.label}
-                  {group.items && (
+                  {group.columns && (
                     <ChevronDown
                       className={cn(
                         "h-3.5 w-3.5 transition-transform",
@@ -64,34 +64,67 @@ export function Navbar() {
                 </a>
 
                 <AnimatePresence>
-                  {group.items && openMenu === group.label && (
+                  {group.columns && openMenu === group.label && (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.18 }}
-                      className="absolute left-1/2 top-full w-[560px] -translate-x-1/2 pt-3"
+                      className="absolute left-1/2 top-full w-[720px] -translate-x-1/2 pt-3"
                     >
-                      <div className="glass-strong grid grid-cols-2 gap-1 rounded-2xl p-3 shadow-2xl shadow-black/10">
-                        {group.items.map((item) => (
+                      <div className="glass-strong grid grid-cols-[1fr_1fr_0.9fr] gap-2 rounded-2xl p-3 shadow-2xl shadow-black/10">
+                        {group.columns.map((col) => (
+                          <div key={col.heading} className="p-1">
+                            <p className="px-3 pb-1.5 pt-2 text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
+                              {col.heading}
+                            </p>
+                            {col.items.map((item) => (
+                              <a
+                                key={item.label}
+                                href={group.href}
+                                className="group flex items-start gap-3 rounded-xl p-2.5 transition-colors hover:bg-accent"
+                              >
+                                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-brand/10 text-brand transition-colors group-hover:bg-brand group-hover:text-brand-foreground">
+                                  <item.icon className="h-4.5 w-4.5" />
+                                </span>
+                                <span className="min-w-0">
+                                  <span className="block text-sm font-semibold text-foreground">
+                                    {item.label}
+                                  </span>
+                                  <span className="block text-xs text-muted-foreground">
+                                    {item.description}
+                                  </span>
+                                </span>
+                              </a>
+                            ))}
+                          </div>
+                        ))}
+
+                        {group.featured && (
                           <a
-                            key={item.label}
                             href={group.href}
-                            className="group flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-accent"
+                            className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-border/60 bg-gradient-to-br from-brand/12 via-cyan/8 to-transparent p-4"
                           >
-                            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-brand/10 text-brand transition-colors group-hover:bg-brand group-hover:text-brand-foreground">
-                              <item.icon className="h-4.5 w-4.5" />
-                            </span>
-                            <span className="min-w-0">
-                              <span className="block text-sm font-semibold text-foreground">
-                                {item.label}
+                            <div>
+                              <span className="grid h-10 w-10 place-items-center rounded-xl bg-brand/15 text-brand">
+                                <group.featured.icon className="h-5 w-5" />
                               </span>
-                              <span className="block text-xs text-muted-foreground">
-                                {item.description}
+                              <span className="mt-3 block text-[10px] font-semibold uppercase tracking-[0.18em] text-brand">
+                                {group.featured.eyebrow}
                               </span>
+                              <span className="mt-1 block text-sm font-bold text-foreground">
+                                {group.featured.title}
+                              </span>
+                              <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
+                                {group.featured.description}
+                              </span>
+                            </div>
+                            <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-brand">
+                              {group.featured.cta}
+                              <ChevronDown className="h-3.5 w-3.5 -rotate-90" />
                             </span>
                           </a>
-                        ))}
+                        )}
                       </div>
                     </motion.div>
                   )}
@@ -99,6 +132,7 @@ export function Navbar() {
               </div>
             ))}
           </nav>
+
 
           <div className="flex items-center gap-2">
             <Button
