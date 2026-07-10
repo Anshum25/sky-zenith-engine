@@ -70,7 +70,7 @@ export function Navbar() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.18 }}
-                      className="absolute left-1/2 top-full w-[720px] -translate-x-1/2 pt-3"
+                      className="absolute left-0 top-full w-[720px] max-w-[calc(100vw-2rem)] pt-3"
                     >
                       <div className="glass-strong grid grid-cols-[1fr_1fr_0.9fr] gap-2 rounded-2xl p-3 shadow-2xl shadow-black/10">
                         {group.columns.map((col) => (
