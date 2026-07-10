@@ -91,26 +91,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "ERP, enterprise resource planning, AI ERP, cloud ERP, finance software, supply chain, manufacturing ERP, business software",
       },
-      { property: "og:title", content: "SkyERP — AI-Native ERP Platform" },
+      { property: "og:title", content: "SkyERP — AI-Native ERP Platform for the Modern Enterprise" },
       {
         property: "og:description",
         content:
-          "Run your entire business on one intelligent platform. Finance, supply chain, HR, manufacturing and CRM with an AI copilot.",
+          "SkyERP unifies finance, supply chain, HR, manufacturing and CRM on one intelligent, AI-native platform with real-time analytics. Trusted by 4,200+ enterprises worldwide.",
       },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "SkyERP" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "SkyERP — AI-Native ERP Platform" },
+      { name: "twitter:title", content: "SkyERP — AI-Native ERP Platform for the Modern Enterprise" },
       {
         name: "twitter:description",
         content:
-          "The AI-native ERP unifying finance, operations and people for the world's most ambitious enterprises.",
+          "SkyERP unifies finance, supply chain, HR, manufacturing and CRM on one intelligent, AI-native platform with real-time analytics. Trusted by 4,200+ enterprises worldwide.",
       },
       { name: "theme-color", content: "#6d5cf5" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5b66238b-0e18-43f4-9161-02a82610461e/id-preview-0ee1ecbb--0bfbc9cc-4ffc-4fd9-8d26-7bcbcd235a90.lovable.app-1783679758899.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5b66238b-0e18-43f4-9161-02a82610461e/id-preview-0ee1ecbb--0bfbc9cc-4ffc-4fd9-8d26-7bcbcd235a90.lovable.app-1783679758899.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
