@@ -42,7 +42,7 @@ export function Navbar() {
             className="hidden items-center gap-1 lg:flex"
             onMouseLeave={() => setOpenMenu(null)}
           >
-            {navGroups.map((group) => (
+            {navGroups.map((group, gi) => (
               <div
                 key={group.label}
                 className="relative"
